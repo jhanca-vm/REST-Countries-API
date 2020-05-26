@@ -1,14 +1,54 @@
 <script>
-	import { onMount } from 'svelte';
 	import Search from '../components/Search.svelte';
 
-	const API = 'https://restcountries.eu/rest/v2/';
-	let data = [];
+	let region = 'all';
+	let promise = printCountries();
+	let value = '';
+	let dataSearch = [];
+	
+	const handleSearch = (e) => value = e.target.value;
 
-	onMount(async () => {
-		const response = await fetch(API);
-		data = await response.json();
-	});
+	const filterAfrica = () => {
+		region = 'region/africa';
+		promise = printCountries();
+	};
+
+	const filterAmerica = () => {
+		region = 'region/americas';
+		promise = printCountries();
+	};
+
+	const filterAsia = () => {
+		region = 'region/asia';
+		promise = printCountries();
+	};
+
+	const filterEurope = () => {
+		region = 'region/europe';
+		promise = printCountries();
+	};
+
+	const filterOceania = () => {
+		region = 'region/oceania';
+		promise = printCountries();
+	};
+	
+	async function printCountries() {
+		const response = await fetch(`https://restcountries.eu/rest/v2/${region}`);
+		const data = await response.json();
+
+		if (response.ok) {
+			return data;
+		} else {
+			throw new Error(data);
+		};
+	};
+
+	$: if (value.length > 1) {
+		fetch(`https://restcountries.eu/rest/v2/name/${value}`)
+			.then(res => res.json())
+			.then(resJson => dataSearch = resJson || [])
+	};
 </script>
 
 <style>
@@ -62,16 +102,40 @@
 	<title>REST Countries API</title>
 </svelte:head>
 
-<Search />
+<Search
+	value={value}
+	handleSearch={handleSearch}
+	filterAfrica={filterAfrica}
+  filterAmerica={filterAmerica}
+  filterAsia={filterAsia}
+  filterEurope={filterEurope}
+  filterOceania={filterOceania}
+/>
 
 <section>
-	{#each data as item}
-		<a href={item.alpha3Code}>
-			<img src={item.flag} alt={item.name}>
-			<h3>{item.name}</h3>
-			<p><strong>Population:</strong> {item.population}</p>
-			<p><strong>Region:</strong> {item.region}</p>
-			<p><strong>Capital:</strong> {item.capital}</p>
-		</a>
-	{/each}
+	{#if value == ''}
+		{#await promise}
+			<p>Loading...</p>
+		{:then data}	
+			{#each data as {alpha3Code, flag, name, population, region, capital}}
+				<a href={alpha3Code}>
+					<img src={flag} alt={name}>
+					<h3>{name}</h3>
+					<p><strong>Population:</strong> {population}</p>
+					<p><strong>Region:</strong> {region}</p>
+					<p><strong>Capital:</strong> {capital}</p>
+				</a>
+			{/each}
+		{/await}
+	{:else}
+		{#each dataSearch as {alpha3Code, flag, name, population, region, capital}}
+			<a href={alpha3Code}>
+				<img src={flag} alt={name}>
+				<h3>{name}</h3>
+				<p><strong>Population:</strong> {population}</p>
+				<p><strong>Region:</strong> {region}</p>
+				<p><strong>Capital:</strong> {capital}</p>
+			</a>
+		{/each}
+	{/if}
 </section>

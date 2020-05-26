@@ -1,4 +1,12 @@
 <script>
+  export let value;
+  export let handleSearch;
+  export let filterAfrica;
+  export let filterAmerica;
+  export let filterAsia;
+  export let filterEurope;
+  export let filterOceania;
+
   let click = 0;
 
   function showHide() {
@@ -93,18 +101,18 @@
 <section>
   <div class="search">
     <i class="fas fa-search"></i>
-    <input type="text" placeholder="Search for a country...">
+    <input type="text" value={value} placeholder="Search for a country..." on:input={handleSearch}>
   </div>
   <div on:click={showHide} class="filter" id="menu">
     <p>Filter by Region</p>
     <i class="fas fa-angle-down"></i>
     <div class="filter__list" id="list">
       <ul>
-        <li>Africa</li>
-        <li>America</li>
-        <li>Asia</li>
-        <li>Europe</li>
-        <li>Oceania</li>
+        <li on:click={filterAfrica}>Africa</li>
+        <li on:click={filterAmerica}>America</li>
+        <li on:click={filterAsia}>Asia</li>
+        <li on:click={filterEurope}>Europe</li>
+        <li on:click={filterOceania}>Oceania</li>
       </ul>
     </div>
   </div>
