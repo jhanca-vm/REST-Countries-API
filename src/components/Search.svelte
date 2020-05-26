@@ -99,6 +99,42 @@
     margin: .8em 0;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 768px) {
+		section {
+			flex-direction: column;
+      align-items: flex-start;
+		}
+
+    .search {
+      width: 50%;
+    }
+
+    .filter {
+      margin-top: 2em;
+    }
+
+    .filter__list ul li {
+      width: initial;
+    }
+	}
+
+  @media screen and (max-width: 576px) {
+    .search {
+      width: -webkit-fill-available;
+    }
+	}
+
+  @media screen and (max-width: 480px) {
+		section {
+			margin-left: -1em;
+      margin-right: -1em;
+		}
+
+    .filter {
+      margin-bottom: 7px;
+    }
+	}
 </style>
 
 <section>

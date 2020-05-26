@@ -91,7 +91,7 @@
 
 	img {
 		width: 100%;
-		height: 160px;
+		height: 180px;
 		border-top-left-radius: inherit;
 		border-top-right-radius: inherit;
 		object-fit: cover;
@@ -113,13 +113,37 @@
 	}
 
 	@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	@media screen and (max-width: 1200px) {
+		section {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 900px) {
+		section {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+
+	@media screen and (max-width: 576px) {
+		section {
+			padding-top: 2em;
+			grid-template-columns: 1fr;
+			grid-gap: 3em;
+		}
+
+		img {
+			height: 200px;
+		}
+	}
 </style>
 
 <svelte:head>

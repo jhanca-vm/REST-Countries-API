@@ -47,6 +47,21 @@
 		--elements: hsl(209, 23%, 22%);
 		--shadow: 0 1px 7px 0 rgba(51, 51, 51, 0.1);
 	}
+
+	@media screen and (max-width: 576px) {
+		header a {
+			font-size: 12px;
+		}
+		header span {
+			font-size: 11px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		header {
+			padding: 1.2em 1.5em;
+		}
+	}
 </style>
 
 <header>
