@@ -96,6 +96,30 @@
 		border-top-right-radius: inherit;
 		object-fit: cover;
 	}
+
+	.preloader {
+		width: 70px;
+		height: 70px;
+		grid-area: 1 / span 4;
+		justify-self: center;
+		margin-top: 50px;
+		border: 10px solid #eeeeee;
+		border-top: 10px solid #666666;
+		border-radius: 50%;
+		animation-name: rotate;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>
 
 <svelte:head>
@@ -115,7 +139,7 @@
 <section>
 	{#if value == ''}
 		{#await promise}
-			<p>Loading...</p>
+			<div class="preloader"></div>
 		{:then data}	
 			{#each data as {alpha3Code, flag, name, population, region, capital}}
 				<a href={alpha3Code}>
@@ -136,6 +160,8 @@
 				<p><strong>Region:</strong> {region}</p>
 				<p><strong>Capital:</strong> {capital}</p>
 			</a>
+		{:else}
+			<div class="preloader"></div>
 		{/each}
 	{/if}
 </section>

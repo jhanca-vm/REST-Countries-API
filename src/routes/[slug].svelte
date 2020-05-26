@@ -126,6 +126,8 @@
         <p><strong>Border Countries: </strong></p>
         {#each country.borders as border}
           <a href={border}>{border}</a>
+        {:else}
+          <a href=".">None</a>
         {/each}
       </div>
     </div>

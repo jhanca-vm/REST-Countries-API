@@ -36,9 +36,10 @@
     border-radius: 5px;
     background-color: var(--elements);
     box-shadow: var(--shadow);
+    color: var(--text);
   }
   .search i {
-    color: var(--text);
+    color: inherit;
     opacity: .3;
   }
   .search input {
@@ -48,6 +49,8 @@
     outline: none;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 14px;
+    background-color: inherit;
+    color: inherit;
   }
   .search input::placeholder {
     font-family: inherit;
